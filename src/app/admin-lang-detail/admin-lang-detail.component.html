@@ -16,27 +16,27 @@
       <form action="" method="post" (ngSubmit)="submit()" novalidate #f="ngForm">
         <div class="flex">
           <span>Voto Documentazione</span>
-          <input type="number" min="0" max="10" required [value]="lang.doc_vote" [(ngModel)]="form.doc_vote" name="doc_vote">
+          <input type="number" min="0" max="10" required [(ngModel)]="lang.doc_vote" name="doc_vote">
         </div>
         <div class="flex">
           <span>Voto Tutorial Video</span>
-          <input type="number" min="0" max="10" required [value]="lang.tut_vote" [(ngModel)]="form.tut_vote" name="tut_vote">
+          <input type="number" min="0" max="10" required [(ngModel)]="lang.tut_vote" name="tut_vote">
         </div>
         <div class="flex">
           <span>Voto Esercizi principiante</span>
-          <input type="number" min="0" max="10" required [value]="lang.exc1_vote" [(ngModel)]="form.exc1_vote" name="exc1_vote">
+          <input type="number" min="0" max="10" required [(ngModel)]="lang.exc1_vote" name="exc1_vote">
         </div>
         <div class="flex">
           <span>Voto Esercizi intermendio</span>
-          <input type="number" min="0" max="10" required [value]="lang.exc2_vote" [(ngModel)]="form.exc2_vote" name="exc2_vote">
+          <input type="number" min="0" max="10" required [(ngModel)]="lang.exc2_vote" name="exc2_vote">
         </div>
         <div class="flex">
           <span>Voto Esercizi azanzato</span>
-          <input type="number" min="0" max="10" required [value]="lang.exc3_vote" [(ngModel)]="form.exc3_vote" name="exc3_vote">
+          <input type="number" min="0" max="10" required [(ngModel)]="lang.exc3_vote" name="exc3_vote">
         </div>
         <div class="flex">
           <span>Voto Esercizi esperto</span>
-          <input type="number" min="0" max="10" required [value]="lang.exc4_vote" [(ngModel)]="form.exc4_vote" name="exc4_vote">
+          <input type="number" min="0" max="10" required [(ngModel)]="lang.exc4_vote" name="exc4_vote">
         </div>
         <button type="submit" (click)="submit()" class="green">Salva modifiche</button>
       </form>

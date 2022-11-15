@@ -49,6 +49,7 @@ export class AdminLangDetailComponent implements OnInit {
   }
 
   submit() {
+    this.form = this.lang;
     this.languageService.editStudentVotes
     (
       this.selectedStudent.username, this.lang.dev_lang.id, this.form.doc_vote, this.form.tut_vote,
@@ -57,6 +58,8 @@ export class AdminLangDetailComponent implements OnInit {
       // alert(resp);
       if (resp) {
         this.router.navigate(['/admin-dashboard']);
+      } else {
+        alert("Dati inseriti non correttamente");
       }
     })
   }
