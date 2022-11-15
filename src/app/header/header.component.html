@@ -1,0 +1,16 @@
+<header class="d-flex align-items-center">
+  <!-- logo e nome -->
+  <img  class="adv-logo" src="../assets/adv-logo.png" alt="Advancia Logo">
+  <h1>Web Developer School</h1>
+
+  <!-- dati visibili solo se loggati  -->
+  <div class="welcome" *ngIf="username">Bentornato {{ username | titlecase }}!</div>
+
+  <a [routerLink]="['/login']" *ngIf="username" (click)="logout()">
+    <button type="button">
+      <span class="material-icons-outlined">logout</span>
+      <span>Logout</span>
+    </button>
+  </a>
+
+</header>

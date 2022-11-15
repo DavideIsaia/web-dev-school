@@ -1,0 +1,44 @@
+<h2 class="text-center">Inserisci i seguenti dati per accedere</h2>
+
+<form
+  #f="ngForm"
+  novalidate
+  class="position-absolute top-50 start-50 translate-middle"
+  (ngSubmit)="submit()"
+>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>UserName</mat-label>
+    <input
+    [(ngModel)]="form.username"
+    required
+    matInput placeholder="Inserisci il tuo username"
+    name="username"
+    type="username">
+  </mat-form-field><br>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Password</mat-label>
+    <input
+    [(ngModel)]="form.password"
+    required
+    matInput placeholder="Inserisci la tua password"
+    value=""
+    name="password"
+    type="password">
+  </mat-form-field><br>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="submit()"
+  >
+    Accedi
+  </button>
+
+  <span *ngIf="showLoginError">
+    <button mat-button color="accent">Dati Errati!</button>
+  </span>
+
+</form>

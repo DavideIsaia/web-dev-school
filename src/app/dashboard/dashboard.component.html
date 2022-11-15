@@ -1,0 +1,19 @@
+<a>
+  <div class="card" *ngFor="let lang of languages">
+    <div
+      routerLink="/detailLanguage/{{ lang.dev_lang.name }}"
+      class="inner-card"
+      [ngStyle]="{'background-color': lang.dev_lang.color}"
+      (click)="sendLangDetails(lang)"
+    >
+      <button type="button">
+        <img src="{{ lang.dev_lang.symbol }}" alt="{{ lang.dev_lang.name }}">
+        <h3 class="title">{{ lang.dev_lang.name }}</h3>
+        <div class="progress-bar text-center">
+          <div class="filled" [ngStyle]="{'width':lang.progress+ '%'}"></div>
+          <div class="z-10">Studiato al {{lang.progress}}%</div>
+        </div>
+      </button>
+    </div>
+  </div>
+</a>

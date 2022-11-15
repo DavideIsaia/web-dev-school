@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'web-dev-school';
+  title = 'Web Developer School';
+
+  username = "prova";
+  onLogin() {
+    // this.username = username;
+    // alert("ciao");
+  }
 }

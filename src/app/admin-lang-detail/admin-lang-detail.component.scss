@@ -1,0 +1,114 @@
+button {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:0.6rem 1.8rem;
+  border:1px solid #70cfff;
+  background-color: #ffffff;
+  margin: 0 1rem;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:400;
+  color:#000000;
+  transition: all 0.2s;
+  &.green{
+    &:hover{
+      color:#000000;
+      background-color:greenyellow;
+    }
+  }
+  &:hover{
+  color:#ffffff;
+  background-color:#000000;
+  }
+}
+h2 {
+  font-size: 1.8rem;
+  padding: 0.3rem auto;
+  color: #050049;
+}
+.container {
+  width: 70%;
+  margin: 1rem auto;
+  img {
+    display: block;
+    margin: 0 auto;
+    height: 150px;
+    padding-bottom: 0.3rem;
+  }
+  .content {
+    background-color: rgba(255, 255, 255, 0.409);
+    border-radius: 25px;
+    padding: 0.8rem 1.4rem;
+
+    .progress-bar {
+      position: relative;
+      background-color: #ffffff;
+      border-radius: 8px;
+      width: 40%;
+      margin: 0 auto;
+      font-size: 1rem;
+      height: 2rem;
+      line-height: 2rem;
+      .filled {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2rem;
+        background-color: greenyellow;
+        animation: 1s linear filling;
+
+        @keyframes filling {
+          0% {
+            width: 0%;
+          }
+        }
+      }
+
+      .z-10 {
+        z-index: 10;
+        color: black;
+      }
+    }
+
+    .col {
+      width: 50%;
+      font-size: 1.1rem;
+      h4 {
+        font-size: 1.6rem;
+        font-weight: 500;
+        margin: 1.2rem 0 0.7rem;
+        color: #050049;
+      }
+      li {
+        margin-bottom: 0.7rem;
+        a {
+          display: inline-block;
+          width: 45%;
+          padding: 0.2rem 0.8rem;
+          border-radius: 6px;
+          text-decoration: none;
+          margin: 0;
+          background-color: #0052cc;
+          color: white;
+          transition: all 0.2s;
+          &:hover {
+            background-color: rgba(129, 224, 255, 0.472);
+            color: black;
+          }
+        }
+      }
+      form{
+        width: 50%;
+        .flex {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+        }
+        div{
+          margin-bottom: 0.9rem;
+        }
+      }
+    }
+  }
+}

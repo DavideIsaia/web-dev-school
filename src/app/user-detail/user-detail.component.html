@@ -1,0 +1,7 @@
+<button type="button" (click)="goBack()"><span class="material-icons-round">home</span><span>Indietro</span></button>
+<div class="container" *ngIf="user">
+  <h2 class="text-center">{{ user.username }}</h2>
+  <h3>ID: {{ user.id }}</h3>
+  <h3>Registrato il: {{ user.registration_date | date }}</h3>
+  <h3>Avanzamento studi: {{ user.total_progress }}</h3>
+</div>
