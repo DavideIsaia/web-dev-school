@@ -13,8 +13,16 @@ export class LanguageService {
     private http: HttpClient
   ) { }
 
+  getDevLangBase(): Observable<any> {
+    return this.http.get(`http://localhost:8080/lang-list`);
+  }
+
   getLanguages(username:string): Observable<any> {
     return this.http.get(`http://localhost:8080/dashboard/${username}`);
+  }
+
+  getStudentsVotes(id:number, progress:number): Observable<any> {
+    return this.http.get(`http://localhost:8080/search-students/${id}/${progress}`);
   }
 
   editStudentVotes(

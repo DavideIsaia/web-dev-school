@@ -13,6 +13,7 @@
     [(ngModel)]="form.username"
     required
     matInput placeholder="Inserisci il tuo username"
+    minlength="2"
     name="username"
     type="username">
   </mat-form-field><br>
@@ -24,6 +25,7 @@
     required
     matInput placeholder="Inserisci la tua password"
     value=""
+    minlength="4"
     name="password"
     type="password">
   </mat-form-field><br>
@@ -33,6 +35,7 @@
     color="primary"
     type="submit"
     (click)="submit()"
+    [disabled]="!f.valid"
   >
     Accedi
   </button>

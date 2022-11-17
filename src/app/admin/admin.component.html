@@ -1,15 +1,22 @@
+<h1 class="text-center p-3">Filtra studenti</h1>
+<div class="container">
 
+  <form class="text-center">
+    <label for="base-lang">Filtra per linguaggio desiderato:</label>
+    <select class="ms-1 me-4" id="base-lang">
+      <option value=""></option>
+      <option *ngFor="let lang of base_languages" [value]="lang.id">{{ lang.name }}</option>
+    </select>
+
+    <label for="progress">Completamento dell'argomento:</label>
+    <input class="ms-1" id="progress" type="number" min="0" max="100" step="5"><span> %</span>
+
+    <button type="submit" type="button" class="btn btn-primary ms-4" (click)="search()">Cerca</button>
+  </form>
+
+</div>
 
 <h1 class="text-center p-3">Lista degli studenti</h1>
-<!--
-<ul *ngFor="let user of users">
-  <li routerLink="/detailUser/{{ user.username }}" (click)="sendUserDetails(user)">
-    <div class="name">Username: {{ user.username }}</div>
-    <div>ID: {{ user.id }}</div>
-    <div>Registrato il: {{ user.registration_date | date }}</div>
-    <div>Avanzamento studi: {{ user.total_progress }}</div>
-  </li>
-</ul> -->
 <div class="container">
   <table class="table table-striped table-dark table-hover">
     <thead>
@@ -21,9 +28,8 @@
       </tr>
     </thead>
     <tbody>
-      <!-- <tr *ngFor="let user of users" routerLink="/detailUser/{{ user.username }}" (click)="sendUserDetails(user)"> -->
       <tr *ngFor="let student of students" routerLink="/admin-dashboard" (click)="sendUserDetails(student)">
-        <th scope="row" >{{ student.id }}</th>
+        <th scope="row" >#{{ student.id }}</th>
         <td>{{ student.username | titlecase }}</td>
         <td>{{ student.total_progress | titlecase }}</td>
         <td>{{ student.registration_date | date: 'dd/MM/yyyy' }}</td>
