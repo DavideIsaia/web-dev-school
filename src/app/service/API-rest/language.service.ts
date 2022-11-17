@@ -17,6 +17,10 @@ export class LanguageService {
     return this.http.get(`http://localhost:8080/lang-list`);
   }
 
+  getLangAndProgress(): Observable<any> {
+    return this.http.get(`http://localhost:8080/lang-progress-list`);
+  }
+
   getLanguages(username:string): Observable<any> {
     return this.http.get(`http://localhost:8080/dashboard/${username}`);
   }

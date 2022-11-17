@@ -1,15 +1,27 @@
 <h1 class="text-center p-3">Filtra studenti</h1>
 <div class="container">
 
-  <form class="text-center">
+  <form method="get" class="text-center" (ngSubmit)="search()" #f="ngForm">
     <label for="base-lang">Filtra per linguaggio desiderato:</label>
-    <select class="ms-1 me-4" id="base-lang">
+    <select class="ms-1 me-4" id="base-lang" [(ngModel)]="form.id" name="id">
       <option value=""></option>
-      <option *ngFor="let lang of base_languages" [value]="lang.id">{{ lang.name }}</option>
+      <option
+        *ngFor="let lang of base_languages"
+        [value]="lang.id"
+      >
+        {{lang.id}} - {{ lang.name }}
+    </option>
     </select>
 
     <label for="progress">Completamento dell'argomento:</label>
-    <input class="ms-1" id="progress" type="number" min="0" max="100" step="5"><span> %</span>
+    <input
+      class="ms-1"
+      id="progress"
+      type="number"
+      min="0" max="100" step="5"
+      [(ngModel)]="form.progress"
+      name="progress"
+    ><span> %</span>
 
     <button type="submit" type="button" class="btn btn-primary ms-4" (click)="search()">Cerca</button>
   </form>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DevLangBase } from '../dev-lang-base';
 import { DevLanguage } from '../language';
@@ -20,6 +20,11 @@ export class AdminComponent implements OnInit {
   selectedStudent: User;
   base_languages: DevLangBase[];
   langs: DevLanguage[];
+  lang: DevLangBase;
+  @Input() form: any  = {
+    id: 1,
+    progress: 0
+  };
 
   constructor(
     private router: Router,
@@ -33,6 +38,7 @@ export class AdminComponent implements OnInit {
       .getUsers()
       .subscribe(response => {this.students = response})
     this.languageService.getDevLangBase().subscribe(resp => {this.base_languages = resp})
+    this.languageService.getLangAndProgress().subscribe(resp => {this.langs = resp})
   }
 
   sendUserDetails(student: User) {
@@ -46,7 +52,8 @@ export class AdminComponent implements OnInit {
   }
 
   search() {
-    this.languageService.getStudentsVotes(6, 40).subscribe(resp =>
+    // this.lang.id = this.form.id;
+    this.languageService.getStudentsVotes(this.form.id, this.form.progress).subscribe(resp =>
       {
         console.log(resp)
         this.langs = resp
