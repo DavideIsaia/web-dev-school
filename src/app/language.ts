@@ -10,6 +10,7 @@ export interface DevLanguage {
 	exc2_vote: number;
 	exc3_vote: number;
 	exc4_vote: number;
+  last_update: Date;
 }
 
   // id: number;

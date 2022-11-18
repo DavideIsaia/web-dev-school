@@ -13,13 +13,13 @@
     </option>
     </select>
 
-    <label for="progress">Completamento dell'argomento:</label>
+    <label for="progress">Progresso totale studente:</label>
     <input
       class="ms-1"
       id="progress"
       type="number"
       min="0" max="100" step="5"
-      [(ngModel)]="form.progress"
+      [(ngModel)]="form.total_progress"
       name="progress"
     ><span> %</span>
 
@@ -33,17 +33,19 @@
   <table class="table table-striped table-dark table-hover">
     <thead>
       <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Username Studente</th>
-        <th scope="col">Avanzamento studi</th>
-        <th scope="col">Registrato il</th>
+        <th>ID</th>
+        <th>Username studente</th>
+        <th>Avanzamento studi</th>
+        <th>Progresso totale</th>
+        <th>Registrato il</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let student of students" routerLink="/admin-dashboard" (click)="sendUserDetails(student)">
-        <th scope="row" >#{{ student.id }}</th>
+        <td>#{{ student.id }}</td>
         <td>{{ student.username | titlecase }}</td>
-        <td>{{ student.total_progress | titlecase }}</td>
+        <td>{{ student.actual_state | titlecase }}</td>
+        <td>{{ student.total_progress }}%</td>
         <td>{{ student.registration_date | date: 'dd/MM/yyyy' }}</td>
       </tr>
     </tbody>

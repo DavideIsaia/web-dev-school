@@ -16,14 +16,14 @@ import { UserService } from '../user.service';
 })
 export class AdminComponent implements OnInit {
 
-  students : User[];
-  selectedStudent: User;
-  base_languages: DevLangBase[];
-  langs: DevLanguage[];
-  lang: DevLangBase;
-  @Input() form: any  = {
+  students          : User[];
+  filteredUsersList : User[];
+  selectedStudent   : User;
+  base_languages    : DevLangBase[];
+  langs             : DevLanguage[];
+  @Input() form     : any  = {
     id: 1,
-    progress: 0
+    total_progress: 0
   };
 
   constructor(
@@ -52,13 +52,12 @@ export class AdminComponent implements OnInit {
   }
 
   search() {
-    // this.lang.id = this.form.id;
-    this.languageService.getStudentsVotes(this.form.id, this.form.progress).subscribe(resp =>
-      {
-        console.log(resp)
-        this.langs = resp
-      }
-    );
+    this.languageService.getUsersFilteredList(this.form.total_progress)
+    .subscribe(resp => {
+      // console.log(resp)
+      this.filteredUsersList = resp
+      this.students = this.filteredUsersList
+    });
 
   }
 

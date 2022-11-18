@@ -6,5 +6,6 @@ export interface User {
   password         : string;
   role             : string;
   registration_date: Date;
-  total_progress   : string;
+  actual_state     : string;
+  total_progress   : number;
 }
