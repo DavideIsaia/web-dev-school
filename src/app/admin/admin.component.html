@@ -1,8 +1,23 @@
 <h1 class="text-center p-3">Filtra studenti</h1>
 <div class="container">
 
-  <form method="get" class="text-center" (ngSubmit)="search()" #f="ngForm">
-    <label for="base-lang">Filtra per linguaggio desiderato:</label>
+  <form method="get" class="d-flex align-items-center justify-content-between" (ngSubmit)="search()" #f="ngForm">
+    <div class="check-filter">
+      <div class="row">
+        <div
+          *ngFor="let lang of base_languages"
+          class="col-12 col-md-6 col-lg-4 mb-3"
+        >
+        <input type="checkbox" [id]="lang.name" (click)="prova(lang.name)"/>
+          <label class="py-2 card d-flex align-items-center justify-content-between" [for]="lang.name" [ngStyle]="{'background-color': lang.color}">
+            <span>{{ lang.name }}</span>
+            <!-- [(ngModel)]="form.checked_langs" name="checked_langs" -->
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- <label for="base-lang">Filtra per linguaggio desiderato:</label>
     <select class="ms-1 me-4" id="base-lang" [(ngModel)]="form.id" name="id">
       <option value=""></option>
       <option
@@ -11,19 +26,21 @@
       >
         {{lang.id}} - {{ lang.name }}
     </option>
-    </select>
+    </select> -->
 
-    <label for="progress">Progresso totale studente:</label>
-    <input
-      class="ms-1"
-      id="progress"
-      type="number"
-      min="0" max="100" step="5"
-      [(ngModel)]="form.total_progress"
-      name="progress"
-    ><span> %</span>
-
+    <div class="progress-filter">
+      <label for="progress">Progresso totale studente:</label>
+      <input
+        class="ms-1"
+        id="progress"
+        type="number"
+        min="0" max="100" step="5"
+        [(ngModel)]="form.total_progress"
+        name="progress"
+      ><span> %</span>
+    </div>
     <button type="submit" type="button" class="btn btn-primary ms-4" (click)="search()">Cerca</button>
+
   </form>
 
 </div>

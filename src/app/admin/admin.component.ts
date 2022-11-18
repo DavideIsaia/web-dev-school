@@ -8,7 +8,6 @@ import { DetailUserService } from '../service/local/detail-user.service';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
-
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -22,8 +21,8 @@ export class AdminComponent implements OnInit {
   base_languages    : DevLangBase[];
   langs             : DevLanguage[];
   @Input() form     : any  = {
-    id: 1,
-    total_progress: 0
+    checked_langs   : [],
+    total_progress  : 0
   };
 
   constructor(
@@ -52,13 +51,17 @@ export class AdminComponent implements OnInit {
   }
 
   search() {
+    console.log(this.form.checked_langs);
+
     this.languageService.getUsersFilteredList(this.form.total_progress)
     .subscribe(resp => {
       // console.log(resp)
       this.filteredUsersList = resp
       this.students = this.filteredUsersList
     });
-
+  }
+  prova(name) {
+    console.log("clic "+name);
   }
 
 }
