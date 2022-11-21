@@ -25,9 +25,9 @@ export class LanguageService {
     return this.http.get(`http://localhost:8080/dashboard/${username}`);
   }
 
-  getStudentsVotes(id:number, progress:number): Observable<any> {
-    return this.http.get(`http://localhost:8080/search-students/${id}/${progress}`);
-  }
+  // getStudentsVotes(id:number, progress:number): Observable<any> {
+  //   return this.http.get(`http://localhost:8080/search-students/${id}/${progress}`);
+  // }
 
   getUsersFilteredList(total_progress:number): Observable<any> {
     return this.http.get(`http://localhost:8080/users-filtered-list/${total_progress}`);
@@ -47,6 +47,9 @@ export class LanguageService {
       );
   }
 
+  getAllUsers(): Observable<any> {
+    return this.http.get(`http://localhost:8080/get-all-users-progress`);
+  }
 
   // getSingleLanguage(name: string): Observable<any> {
   //   return this.http.get<DevLanguage>(`http://localhost:8080/detailLanguage/${name}`);

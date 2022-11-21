@@ -1,3 +1,4 @@
+import { ArrayType } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DevLangBase } from '../dev-lang-base';
@@ -20,10 +21,11 @@ export class AdminComponent implements OnInit {
   selectedStudent   : User;
   base_languages    : DevLangBase[];
   langs             : DevLanguage[];
-  @Input() form     : any  = {
-    checked_langs   : [],
-    total_progress  : 0
-  };
+  prova_langs       : DevLanguage[];
+  @Input() checked_langs: [];
+  @Input() total_progress: 0;
+  selectedItemsList : DevLangBase[];
+  checkedIDs = [];
 
   constructor(
     private router: Router,
@@ -33,10 +35,9 @@ export class AdminComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userService
-      .getUsers()
-      .subscribe(response => {this.students = response})
+    this.userService.getUsers().subscribe(response => {this.students = response})
     this.languageService.getDevLangBase().subscribe(resp => {this.base_languages = resp})
+    this.languageService.getAllUsers().subscribe(resp => {this.prova_langs = resp})
     this.languageService.getLangAndProgress().subscribe(resp => {this.langs = resp})
   }
 
@@ -50,18 +51,46 @@ export class AdminComponent implements OnInit {
     this.router.navigate([`/admin-dashboard`]);
   }
 
-  search() {
-    console.log(this.form.checked_langs);
-
-    this.languageService.getUsersFilteredList(this.form.total_progress)
+  filterByProgress() {
+    // console.log(this.form.checked_langs);
+    this.languageService.getUsersFilteredList(this.total_progress)
     .subscribe(resp => {
       // console.log(resp)
       this.filteredUsersList = resp
       this.students = this.filteredUsersList
     });
   }
-  prova(name) {
-    console.log("clic "+name);
+
+  changeSelection() {
+    this.fetchSelectedItems()
+    this.selectedItemsList.forEach(element => {
+      // console.log("id: "+element.id+"/ nome: "+element.name);
+      this.prova_langs.forEach(item => {
+        if (element.id == item.dev_lang.id) {
+          console.log("id: "+item.dev_lang.id+"/ user: "+item.username);
+        }
+      })
+    });
   }
+
+  fetchSelectedItems() {
+    this.selectedItemsList = this.base_languages.filter((value, index) => {
+      return value.isChecked
+    });
+  }
+
+  fetchCheckedIDs() {
+    this.checkedIDs = []
+    this.base_languages.forEach((value, index) => {
+      if (value.isChecked) {
+        this.checkedIDs.push(value.id);
+      }
+    });
+  }
+
+  // SELECT  users.username, progress, dev_languages.id, name FROM devlangs_users
+  // JOIN dev_languages ON id_devlang = id
+  // JOIN users ON devlangs_users.username = users.username
+  // WHERE progress >= 50 AND role = 'student'
 
 }

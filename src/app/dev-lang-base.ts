@@ -10,4 +10,5 @@ export interface DevLangBase {
   intermediate:  string;
   advanced:      string;
   expert:        string;
+  isChecked:     boolean;
 }

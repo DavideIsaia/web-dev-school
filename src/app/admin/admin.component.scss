@@ -25,10 +25,11 @@
   input {
     background-color: #212529;
     color: white;
+    width: 3rem;
   }
 }
 
 // tabella
-tr {
+tbody {
   cursor: pointer;
 }
