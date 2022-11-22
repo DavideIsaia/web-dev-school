@@ -47,7 +47,7 @@ export class LanguageService {
       );
   }
 
-  getAllUsers(): Observable<any> {
+  getAllUsersAndLangsAndProgress(): Observable<any> {
     return this.http.get(`http://localhost:8080/get-all-users-progress`);
   }
 

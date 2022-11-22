@@ -20,12 +20,13 @@ export class AdminComponent implements OnInit {
   filteredUsersList : User[];
   selectedStudent   : User;
   base_languages    : DevLangBase[];
+  selectedItemsList : DevLangBase[];
   langs             : DevLanguage[];
-  prova_langs       : DevLanguage[];
+  user_filter_langs : DevLanguage[];
   @Input() checked_langs: [];
   @Input() total_progress: 0;
-  selectedItemsList : DevLangBase[];
   checkedIDs = [];
+  filteredArray = [];
 
   constructor(
     private router: Router,
@@ -37,7 +38,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUsers().subscribe(response => {this.students = response})
     this.languageService.getDevLangBase().subscribe(resp => {this.base_languages = resp})
-    this.languageService.getAllUsers().subscribe(resp => {this.prova_langs = resp})
+    this.languageService.getAllUsersAndLangsAndProgress().subscribe(resp => {this.user_filter_langs = resp})
     this.languageService.getLangAndProgress().subscribe(resp => {this.langs = resp})
   }
 
@@ -57,6 +58,7 @@ export class AdminComponent implements OnInit {
     .subscribe(resp => {
       // console.log(resp)
       this.filteredUsersList = resp
+      // aggiungere qua un confronto tra filteredArray che contiene solo usernames e filteredUsersList che contiene oggetti di tipo User e prelevarne il dato User.username
       this.students = this.filteredUsersList
     });
   }
@@ -65,12 +67,24 @@ export class AdminComponent implements OnInit {
     this.fetchSelectedItems()
     this.selectedItemsList.forEach(element => {
       // console.log("id: "+element.id+"/ nome: "+element.name);
-      this.prova_langs.forEach(item => {
+      let tempArray = []
+      this.user_filter_langs.forEach(item => {
         if (element.id == item.dev_lang.id) {
-          console.log("id: "+item.dev_lang.id+"/ user: "+item.username);
+          // console.log("id: "+item.dev_lang.id+"/ user: "+item.username);
+          tempArray.push(item.username);
+          // if (tempArray.includes(item.username)) {
+          // }
+          // console.log("elementi presenti: "+tempArray);
+          return tempArray
+        } else {
+          return tempArray
         }
       })
+      // console.log("temp: "+tempArray);
+      this.filteredArray = tempArray;
     });
+    console.log("filtered: "+this.filteredArray);
+    return this.filteredArray;
   }
 
   fetchSelectedItems() {
