@@ -1,4 +1,5 @@
 import { Timestamp } from "rxjs";
+import { DevLanguage } from "./language";
 
 export interface User {
   id               : number;
@@ -8,4 +9,5 @@ export interface User {
   registration_date: Date;
   actual_state     : string;
   total_progress   : number;
+  dev_lang         : DevLanguage[]
 }

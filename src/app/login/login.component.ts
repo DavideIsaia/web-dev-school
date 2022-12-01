@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
     role             : null,
     registration_date: null,
     actual_state     : null,
-    total_progress   : null
+    total_progress   : null,
+    dev_lang : null
   };
   showLoginError: boolean = false;
   loggedIn:       boolean = false;
