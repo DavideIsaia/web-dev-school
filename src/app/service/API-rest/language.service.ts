@@ -33,10 +33,6 @@ export class LanguageService {
     return this.http.get(`http://localhost:8080/users-filtered-list/${total_progress}`);
   }
 
-  getUser(username:string): Observable<any> {
-    return this.http.get(`http://localhost:8080/user/${username}`);
-  }
-
   editStudentVotes(
     username  : string,
     id_devlang: number,
