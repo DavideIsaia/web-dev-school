@@ -18,17 +18,14 @@ export class AdminComponent implements OnInit {
 
   selectedStudent   : User;
 
+  @Input() checked_langs: [];
+  selectedItemsList : DevLangBase[];
+  baseLanguages     : DevLangBase[];
   filteredUsersListByLangs     = []
   filteredUsersListByProgress  : User[];
   students                     : User[];
-
-  baseLanguages    : DevLangBase[];
-  selectedItemsList : DevLangBase[];
-
-  langs             : DevLanguage[];
   userFilterLangs   : DevLanguage[];
-  @Input() checked_langs: [];
-  @Input() total_progress: 0;
+  @Input() totalProgress: 0;
   // checkedIDs = [];
 
   constructor(
@@ -42,7 +39,6 @@ export class AdminComponent implements OnInit {
     this.userService.getUsers().subscribe(response => {this.students = response})
     this.languageService.getDevLangBase().subscribe(resp => {this.baseLanguages = resp})
     this.languageService.getAllUsersAndLangsAndProgress().subscribe(resp => {this.userFilterLangs = resp})
-    this.languageService.getLangAndProgress().subscribe(resp => {this.langs = resp})
   }
 
   //  invia alla navbar il nome dell'utente loggato
@@ -54,41 +50,102 @@ export class AdminComponent implements OnInit {
   }
 
   studentsFiltered() {
-    this.getProgressFilter()
-    this.getLanguageFilter()
-  }
-
-  getProgressFilter() {
-    this.languageService.getUsersFilteredList(this.total_progress)
-    .subscribe(resp => {
-      this.filteredUsersListByProgress = resp
-      // console.log("filtrati per progressi:");
-      // console.log(this.filteredUsersListByProgress);
-      this.students = this.filteredUsersListByProgress
+    let tempArray = []
+    this.filteredUsersListByProgress.forEach(student => {
+      this.filteredUsersListByLangs.forEach(user => {
+        // console.log("ciao");
+        if ( student.username == user) {
+          this.students = []
+          if (!tempArray.includes(user)) {
+            // console.log(student.username);
+            // console.log(user);
+            tempArray.push(user)
+            tempArray.shift()
+            tempArray.forEach(user => {
+              // console.log("caso 10");
+              this.students = []
+              this.userService.getUser(user).subscribe(response => {
+                this.students.push(response)
+              })
+            });
+          }
+        }
+      });
     });
   }
 
+  getProgressFilter() {
+    this.fetchSelectedItems()
+    this.languageService.getUsersFilteredList(this.totalProgress)
+    .subscribe(resp => {
+      this.filteredUsersListByProgress = resp
+      if (this.totalProgress > 0 && this.selectedItemsList.length > 0) {
+        // console.log("caso 1");
+        this.getFilteredByLangs()
+        this.studentsFiltered()
+      } else if (this.totalProgress == 0 && this.selectedItemsList.length > 0) {
+        // console.log("caso 2");
+        this.getLanguageFilter()
+      } else if (this.totalProgress > 0 && this.selectedItemsList.length == 0) {
+        // console.log("caso 3");
+        this.students = this.filteredUsersListByProgress
+      } else {
+        // console.log("caso 4");
+        this.userService.getUsers().subscribe(response => {this.students = response})
+      }
+    });
+  }
+
+  // getProgressFilter() {
+  //   this.languageService.getUsersFilteredList(this.totalProgress)
+  //   .subscribe(resp => {
+  //     this.filteredUsersListByProgress = resp
+  //     if (this.totalProgress > 0) {
+  //       // console.log(this.filteredUsersListByProgress);
+  //       this.students = this.filteredUsersListByProgress
+  //     } else if (this.filteredUsersListByLangs.length > 0 && this.totalProgress == 0) {
+  //       this.getLanguageFilter()
+  //     } else {
+  //       this.userService.getUsers().subscribe(response => {this.students = response})
+  //     }
+  //   });
+  // }
+
   getLanguageFilter() {
     this.fetchSelectedItems()
-    if (this.selectedItemsList.length > 0) {
-      this.selectedItemsList.forEach(element => {
-        let tempArray = []
-        this.userFilterLangs.forEach(lang => {
-          if (element.id == lang.dev_lang.id) {
-            tempArray.push(lang.username);
-          }
-        })
-        this.filteredUsersListByLangs = tempArray;
-      });
-      this.filteredUsersListByLangs.forEach(user => {
-        this.students = []
-        this.userService.getUser(user).subscribe(response => {
-          this.students.push(response)
-        })
-      });
+    if (this.totalProgress > 0 && this.selectedItemsList.length > 0) {
+      // console.log("caso 5");
+      this.getFilteredByLangs()
+      this.studentsFiltered()
+    } else if (this.selectedItemsList.length > 0) {
+      this.getFilteredByLangs()
+    } else if (this.totalProgress > 0) {
+      // console.log("caso 7");
+      this.getProgressFilter()
     } else {
+      // console.log("caso 8");
       this.userService.getUsers().subscribe(response => {this.students = response})
     }
+  }
+
+  getFilteredByLangs() {
+    this.fetchSelectedItems()
+    this.selectedItemsList.forEach(element => {
+      let tempArray = []
+      this.userFilterLangs.forEach(lang => {
+        if (element.id == lang.dev_lang.id) {
+          tempArray.push(lang.username);
+        }
+      })
+      this.filteredUsersListByLangs = tempArray;
+    });
+    this.filteredUsersListByLangs.forEach(user => {
+      // console.log("caso 6");
+      this.students = []
+      this.userService.getUser(user).subscribe(response => {
+        this.students.push(response)
+      })
+    });
   }
 
   // restituisce le caselle selezionate

@@ -13,7 +13,6 @@
             [id]="lang.name"
             [(ngModel)]="lang.isChecked"
             (change)="getLanguageFilter()"
-            (change)="studentsFiltered()"
           />
           <label
             class="py-2 card d-flex align-items-center justify-content-between"
@@ -37,7 +36,7 @@
     </select> -->
 
     <div class="progress-filter">
-      <label for="progress">Progresso totale studente:</label>
+      <label for="progress">Progresso totale studente maggiore di:</label>
       <input
         class="ms-1"
         id="progress"
@@ -45,10 +44,9 @@
         placeholder="0"
         required
         min="0" max="100" step="5"
-        [(ngModel)]="total_progress"
+        [(ngModel)]="totalProgress"
         name="progress"
         (change)="getProgressFilter()"
-        (change)="studentsFiltered()"
       ><span> %</span>
     </div>
   </div>
